@@ -6,23 +6,23 @@ import StackAdmin from './Admin/StackAdmin';
 import StackCliente from './Cliente/StackCliente';
 import StackEmpleado from './Empleado/StackEmpleado';
 import ProveedorView from './Proveedor/ProveedorView';
+import NoAuth from './NoAuth/NoAuth';
 
 // create a component
 class Selector extends Component {
     constructor(props){
         super(props);
         this.state={
-            tipoUsuario = 'Admin'
+            tipoUsuario: 'Admin',
+            autenticado: false,
         }
     }
 
     render() {
+        const { tipoUsuario, autenticado } = this.state; 
         return (
-            <View style={styles.container}>
-                {this.props.tipoUsuario==='Admin'? <StackAdmin/>:
-                    this.props.tipoUsuario==='Cliente'? <StackCliente/>:
-                        this.props.tipoUsuario==='Empleado'? <StackEmpleado/>:
-                            <ProveedorView/>}
+            <View>
+                <NoAuth/>
             </View>
         );
     }

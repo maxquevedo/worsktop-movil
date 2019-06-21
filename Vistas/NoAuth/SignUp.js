@@ -18,7 +18,7 @@ class SignUp extends Component {
 
     render() {
         const { navigation } = this.props;
-        console.log(this.props);
+        //console.log(this.props);
         return (
             <View style={styles.contenedor}>
                 <SignUpForm registro={this.props.registrar} />

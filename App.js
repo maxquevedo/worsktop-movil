@@ -2,11 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import Store from './Store/Store';
-import NoAuth from './Vistas/NoAuth/NoAuth';
-import StackCliente from './Vistas/Cliente/StackCliente';
-import StackAdmin from './Vistas/Admin/StackAdmin';
-import StackEmpleado from './Vistas/Empleado/StackEmpleado';
-import ProveedorView from './Vistas/Proveedor/ProveedorView';
+import Selector from './Vistas/Selector';
 
 export default class App extends React.Component {
 
@@ -22,7 +18,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Provider store={Store}>
-          <NoAuth/>
+          <Selector/>
         </Provider>
       </View>
     );

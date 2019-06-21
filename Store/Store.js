@@ -3,7 +3,7 @@ import { reducer as form } from 'redux-form';
 import createSagaMiddleware from 'redux-saga';
 import funcionPrimaria from './Sagas/Sagas';
 
-const reducerSesion = (state={},action) =>{
+const reducerSesion = (state="",action) =>{
     switch (action.type) {
         case 'REGISTRO':
             return action.usuario;
@@ -30,23 +30,10 @@ const reducerAgregar = (state="" ,action) =>{
     }
 }
 
-const reducerUsuario = (state='holi',action) =>{
-    switch (action.type) {
-        case 'LOGIN':
-            console.log(action);
-            return action;
-        case 'REGISTRAR':
-            return state;
-        default:
-            return state;
-    }
-}
-
 const sagaMiddleware = createSagaMiddleware();
 
 const reducers = combineReducers({
     reducerSesion,
-    reducerUsuario,
     reducerAgregar,
     form,
 });
