@@ -78,6 +78,24 @@ export default StyleSheet.create({
       },
       verMargin:{
         paddingLeft:'8%',
-      }
+      },
+      scroll:{
+        justifyContent:'center',
+        alignItems:'center'
+      },
+      loading: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      pickerStyle:{
+        height: 50,
+        width: 150,
+        alignItems:'center',
+      },
 
 });

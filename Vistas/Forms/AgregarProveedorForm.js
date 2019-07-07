@@ -44,8 +44,6 @@ const validate = (values) =>{
         errors.usuario = 'requerido';
     }else if(values.usuario.length < 5){
         errors.usuario = 'deben ser al menos 5 caracteres';
-    }else if(values.usuario.length > 10){
-        errors.usuario= 'debe ser menor de 10 caracteres';
     }
 
     //correo
@@ -72,12 +70,14 @@ const AgregarProveedorForm = (props) => {
     return(
         <View>
             <Field style={styles.input} name="rutProveedor" component={fieldAgregarProveedor} ph="12.345.678-9" nm="Rut Proveedor"/>
+            <Field style={styles.input} name="nombre" component={fieldAgregarProveedor} ph="Maxvarell" nm="Nombre"/>
             <Field style={styles.input} name="telefono" component={fieldAgregarProveedor} ph="123456789" nm="Teléfono"/>
             <Field style={styles.input} name="correo" component={fieldAgregarProveedor} ph="usuario" nm="Correo"/>
             <Field style={styles.input} name="usuario" component={fieldAgregarProveedor} ph="usuario" nm="Usuario"/>
             <Field style={styles.input} name="contraseña" component={fieldAgregarProveedor} ph="*******" nm="Contraseña"/>
             <Button style={styles.button} title="Crear Proveedor" color="#DB0600" onPress={props.handleSubmit((values)=>{
-                      console.log(values)
+                    values.nivel_permiso = 'proveedor';
+                    props.registro(values);
             })} />
         </View>
     )

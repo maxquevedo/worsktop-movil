@@ -6,11 +6,7 @@ import funcionPrimaria from './Sagas/Sagas';
 const reducerSesion = (state="",action) =>{
     switch (action.type) {
         case 'REGISTRO':
-            return action.usuario;
-
-        case 'LOGIN':
-            return null;
-    
+            return action.usuario;    
         default:
             return state;
     }

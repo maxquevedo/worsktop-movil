@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import { View, ScrollView, Button, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import SignUpForm from '../Forms/SignUpForm';
 import styles from '../styles';
@@ -20,12 +20,14 @@ class SignUp extends Component {
         const { navigation } = this.props;
         //console.log(this.props);
         return (
-            <View style={styles.contenedor}>
-                <SignUpForm registro={this.props.registrar} />
-                <View style={{justifyContent:'flex-start',marginTop:100}}>
-                <Button title=" Volver a Login " color="#DB0600" onPress={()=>{navigation.goBack();}}/>
-                </View>
-            </View>
+            <KeyboardAvoidingView behavior="padding">
+                <ScrollView contentContainerStyle={styles.scroll}>
+                    <SignUpForm registro={this.props.registrar} />
+                    <View style={{justifyContent:'flex-start',marginTop:100}}>
+                        <Button title=" Volver a Login " color="#DB0600" onPress={()=>{navigation.goBack();}}/>
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
         );
     }
 }

@@ -19,7 +19,7 @@ class EditarHabitacion extends Component {
 
     mostrarHabitaciones = async () =>{
         try{
-            const resp = await fetch('http://10.0.2.2:80/api/public/api/habitacion/index');
+            const resp = await fetch('http://10.0.2.2:80/api/public/api/habitacion/');
             const habitacion = await resp.json();
             this.setState({habitaciones: habitacion.habitaciones , loading:false, refreshing:false});
 
@@ -38,7 +38,7 @@ class EditarHabitacion extends Component {
             let json1 = JSON.stringify({
                 situacion:this.state.estado,
             });
-            const resp = await fetch(`http://10.0.2.2:80/api/public/api/habitacion/update/${id}`,{
+            const resp = await fetch(`http://10.0.2.2:80/api/public/api/habitacion/${id}`,{
                 method:'PUT',
                 headers:{"Content-Type": "application/json; charset=utf-8" },
                 body:JSON.stringify({json:json1}),

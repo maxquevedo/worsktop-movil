@@ -15,7 +15,7 @@ class VerComedor extends Component {
 
     async componentDidMount(){
         try{
-            const menus = await fetch('http://10.0.2.2:80/api/public/api/comedor/index');
+            const menus = await fetch('http://10.0.2.2:80/api/public/api/comedor/');
             const platos = await menus.json();
             this.setState({menus: platos.comedores, loading:false});
 

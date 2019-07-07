@@ -15,9 +15,9 @@ class VerProveedor extends Component {
 
     async componentDidMount(){
         try{
-            const resp = await fetch('http://10.0.2.2:80/api/public/api/proveedor/index');
+            const resp = await fetch('http://10.0.2.2:80/api/public/api/proveedor/');
             const respJson = await resp.json();
-            this.setState({proveedores:respJson.proveedor,loading:false})
+            this.setState({proveedores:respJson.proveedores,loading:false})
         }catch(error){
             console.log(error);
         }
@@ -28,6 +28,7 @@ class VerProveedor extends Component {
         return <TouchableOpacity style={{backgroundColor: 'transparent'}}>
         <View  style={{justifyContent:'space-around'}}>
             <View style={styles.verMargin}>
+                <Text style={styles.text}>Nombre: {data.item.nombre_proveedor}</Text>
                 <Text style={styles.text}>Rut: {data.item.rut_proveedor}-{data.item.dv_proveedor}</Text>
                 <Text style={styles.text}>Teléfono: {data.item.telefono}</Text>
                 <Text style={styles.text}>Correo: {data.item.correo}</Text>

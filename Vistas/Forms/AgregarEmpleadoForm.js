@@ -66,33 +66,6 @@ const validate = (values) =>{
     return errors;
 }
 
-submitUsuario = async(values)=>{
-    let json1 = JSON.stringify({
-        nivel_permiso:'empleado',
-        usuario:values.usuario,
-        pass:values.pass
-    });
-    let resp = await fetch('');
-    let respJson = resp.json();
-
-}
-
-submitEmpleado = async(values,usuario_id)=>{
-    let rut = values.rutEmpleado.replace('.','').split('-')[0];
-    rut = rut.replace('.','');
-    let dv =  values.rutEmpleado.split('-')[1];
-    let nombre = values.nombre.split(' ');
-
-    console.log(rut);
-    let json1 = JSON.stringify({
-        rut_empleado:rut,
-        dv_empleado:dv,
-        nombre_empleado:nombre[0],
-        apellido_empleado:nombre[1],
-        id_usuario:usuario_id
-    });
-}
-
 const AgregarEmpleadoForm = (props) => {
     //console.log(props);
     return(
@@ -102,10 +75,8 @@ const AgregarEmpleadoForm = (props) => {
             <Field style={styles.input} name="usuario" component={fieldCrearEmpleado} ph="usuario" nm="Usuario"/>
             <Field style={styles.input} name="contraseña" component={fieldCrearEmpleado} ph="*******" nm="Contraseña"/>
             <Button style={{justifyContent:'center'}} title="Crear Empleado" color="#DB0600" onPress={props.handleSubmit((values)=>{
-                      this.submitUsuario(values);
-                      let id = this.getId();
-                      this.submitEmpleado(values,id);
-
+                values.nivel_permiso = 'empleado';
+                props.registro(values);
             })} />
         </View>
     )

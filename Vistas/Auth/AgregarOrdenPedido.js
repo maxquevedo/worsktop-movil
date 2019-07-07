@@ -1,9 +1,8 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, } from 'react-native';
+import { ScrollView, KeyboardAvoidingView} from 'react-native';
 import AgregarOrdenPedidoForm from '../Forms/AgregarOrdenPedidoForm';
 import styles from '../styles';
-import leerProductos from '../../Store/Servicios/Api';
 
 // create a component
 class AgregarOrdenPedido extends Component {
@@ -19,15 +18,17 @@ class AgregarOrdenPedido extends Component {
 
     componentDidMount(){
         //this.setState({productos:leerProductos});
-        console.log(productos);
+        //console.log(productos);
     }
 
 
     render() {
         return (
-            <View style={styles.container}>
-               <AgregarOrdenPedidoForm/> 
-            </View>
+            <KeyboardAvoidingView behavior="padding">
+                <ScrollView contentContainerStyle={styles.scroll}>
+                    <AgregarOrdenPedidoForm/> 
+                </ScrollView>
+            </KeyboardAvoidingView>
         );
     }
 }

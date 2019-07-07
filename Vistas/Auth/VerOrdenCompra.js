@@ -15,9 +15,9 @@ class VerOdenCompra extends Component {
 
     async componentDidMount(){
         try{
-            const resp = await fetch('http://10.0.2.2:80/api/public/api/compra/index');
+            const resp = await fetch('http://10.0.2.2:80/api/public/api/compra/');
             const respJson = await resp.json();
-            this.setState({ordenCompra: respJson.ordenes_de_compra , loading:false});
+            this.setState({ordenCompra: respJson.compras , loading:false});
 
         }catch(error){
             if(error)

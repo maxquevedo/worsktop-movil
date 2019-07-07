@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, FlatList,ActivityIndicator } from 'react-native';
+import { View, Text, FlatList,ActivityIndicator, AsyncStorage } from 'react-native';
 import BuscaRut from '../Forms/BuscaRutForm';
 import styles from '../styles';
 
@@ -16,10 +16,9 @@ class VerFacturaCliente extends Component {
     }
 
     mostarFacturas = async()=>{
-        //dar ID 
-        var id = "";
+        var rut = AsyncStorage.getItem("rut_empresa");
         try{
-            const resp = await fetch('http://10.0.2.2:80/api/public/api/factura/index');
+            const resp = await fetch('http://10.0.2.2:80/api/public/api/factura/');
             const respJson = await resp.json();
             this.setState({facturas:respJson.facturas,loading:false});
             

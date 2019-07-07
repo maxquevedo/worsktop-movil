@@ -1,51 +1,71 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button, Picker } from 'react-native';
+import { View, Text, TextInput, Button, AsyncStorage, Alert } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 import styles from '../styles';
 
-const fieldAgregarMenu = (props) => {
-    //console.log(props);
-    // Terminar
-    return(
+const field = (props)=>{
+    return (
         <View style={styles.field}>
-            <Text style={styles.centerText}>{props.nm}</Text>
-            <Picker itemStyle={{textAlign:'center',alignItems:'center'}} onValueChange={()=>{}}>
-                <Picker.Item style={{alignItems:'center', textAlign:'center'}} value='Ejecutivo' label='Ejecutivo'/>
-                <Picker.Item value='EjecutivoVegetariano' label='Ejecutivo Vegetariano'/>
-                <Picker.Item value='Hipocalorico' label='Hipocalórico'/>
-            </Picker>
-         </View>
-    );
-};
-
-const fieldBuscaPlatos = (props) =>{
-    return(
-        <View style={styles.field}>
-        <Text style={styles.centerText}>{props.nm}</Text>
-        <Picker itemStyle={{textAlign:'center'}} >
-            <Picker.Item value='Papitas' label='Papitas'/>
-            <Picker.Item value='Arroz' label='Arroz'/>
-            <Picker.Item value='Sopa' label='Sopa'/>
-        </Picker>
+        <Text style={styles.text}>{props.nm}</Text>
+        <TextInput placeholder={props.ph}
+        style={styles.input}
+        onChangeText={props.input.onChange}
+        value={props.input.value}
+        keyboardType='number-pad'
+        onBlur= {props.input.onBlur}
+        />
+        {props.meta.touched && props.meta.error && <Text>{props.meta.error}</Text> }
      </View>
     );
 }
 
+const validate = (values) =>{
+    const errors = {};
+
+    //Tipo Servicio
+    if(!values.tipoServicio){
+        errors.tipoServicio = 'requerido';
+    }
+
+    //Precio
+    if(!values.precio){
+        errors.precio = 'requerido';
+    }
+    return errors;
+}
+
+getId = ()=>{
+    let id =  AsyncStorage.getItem("id_admin");
+    return id;
+}
+
+createMenu = async (values)=>{
+    let json1 = JSON.stringify({
+        tipo_servicio: values.tipoServicio,
+        precio:values.precio,
+        id_admin:values.id_admin
+    });
+    let resp = await fetch('http://10.0.2.2:80/api/public/api/comedor',
+        {
+            method:'POST',
+            headers:{"Content-Type": "application/json; charset=utf-8" },
+            body:JSON.stringify({json:json1}), 
+        });
+    const respJson = await resp.json();
+    Alert.alert('',respJson.message);
+}
 
 const AgregarMenuForm = (props) => {
     //console.log(props);
     return(
         <View>
-            <Field style={styles.input} name="tipoServicio" component={fieldAgregarMenu} ph="12.345.678-9" nm="Tipo de Servicio"/>
-            <Field style={styles.input} name="PlatoLunes" component={fieldBuscaPlatos} ph="123456789"   nm="Plato día Lunes"/>
-            <Field style={styles.input} name="PlatoMartes" component={fieldBuscaPlatos} ph="usuario"    nm="Plato día Martes"/>
-            <Field style={styles.input} name="PlatoMiercoles" component={fieldBuscaPlatos} ph="usuario" nm="Plato día Miércoles"/>
-            <Field style={styles.input} name="PlatoJueves" component={fieldBuscaPlatos} ph="*******"    nm="Plato día Jueves"/>
-            <Field style={styles.input} name="PlatoViernes" component={fieldBuscaPlatos} ph="*******"   nm="Plato día Viernes"/>
-            <Field style={styles.input} name="PlatoSabado" component={fieldBuscaPlatos} ph="*******"    nm="Plato día Sábado"/>
-            <Field style={styles.input} name="PlatoDomingo" component={fieldBuscaPlatos} ph="*******"   nm="Plato día Domingo"/>
-            <Button style={styles.button} title="Crear Menú" color="#DB0600" onPress={props.handleSubmit((values)=>{
-                      console.log(values)
+            <Field style={styles.input} name="tipoServicio" component={field} ph="Ejecutivo" nm="Tipo de Servicio"/>
+            <Field style={styles.input} name="precio" component={field} ph="5000" nm="Precio"/>
+            <Button style={styles.button} title="Crear Menú" color="#DB0600" onPress={props.handleSubmit(async(values)=>{
+
+                values.id_admin= await this.getId();
+                this.createMenu(values);    
+                //console.log(values)
             })} />
         </View>
     )
@@ -53,4 +73,5 @@ const AgregarMenuForm = (props) => {
 
 export default reduxForm({
     form: 'AgregarMenuForm',
+    validate,
 })(AgregarMenuForm);
